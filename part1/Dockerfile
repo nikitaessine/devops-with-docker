@@ -1,10 +1,7 @@
-FROM ubuntu:20.04
-
-RUN apt-get update && apt-get install -y curl
-
-COPY script.sh /usr/src/app/script.sh
-
-RUN chmod +x /usr/src/app/script.sh
-
-CMD ["/usr/src/app/script.sh"]
+FROM openjdk:8
+EXPOSE 8080
+WORKDIR /usr/src/app
+COPY . .
+RUN ./mvnw package
+CMD ["java", "-jar", "./target/docker-example-1.1.3.jar"]
 
