@@ -1,7 +1,12 @@
-FROM openjdk:8
-EXPOSE 8080
+FROM node:14-alpine
 WORKDIR /usr/src/app
-COPY . .
-RUN ./mvnw package
-CMD ["java", "-jar", "./target/docker-example-1.1.3.jar"]
+COPY package*.json ./
+RUN npm install
 
+COPY . .
+
+RUN npm run build
+
+EXPOSE 8080
+
+CMD ["npm", "start"]
